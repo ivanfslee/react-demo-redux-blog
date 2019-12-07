@@ -1,11 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchUser } from '../actions';
 
 class UserHeader extends React.Component {
-    componentDidMount() {
-        this.props.fetchUser(this.props.userId);
-    }
+
     render() {
         const { user } = this.props;
 
@@ -22,4 +19,4 @@ const mapStateToProps = (state, ownProps) => {
     // we are extracting out the specific user we are looking for (instead of entire list of users that we were doing before )
     return { user: state.users.find(user => user.id === ownProps.userId) }; //this.props === { user: state.users.find....... }
 }
-export default connect(mapStateToProps, { fetchUser })(UserHeader);
+export default connect(mapStateToProps)(UserHeader);
