@@ -7,10 +7,8 @@ class UserHeader extends React.Component {
         this.props.fetchUser(this.props.userId);
     }
     render() {
-        // 'find' is built-in javascript method.
-        //we are passing in entire list of users and looking at each one to find a match to the id 
-        const user = this.props.users.find(user => user.id === this.props.userId); //find user that matches the user.id we are looking for
-        
+        const { user } = this.props;
+
         if (!user) { //on initial render, user will have no value 
             return null;
         }
@@ -19,7 +17,9 @@ class UserHeader extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    return { users: state.users }; //this.props === { users: state.users }
+const mapStateToProps = (state, ownProps) => {
+    //we modify the state to get the user we need and then we pass it as props to the component 
+    // we are extracting out the specific user we are looking for (instead of entire list of users that we were doing before )
+    return { user: state.users.find(user => user.id === ownProps.userId) }; //this.props === { user: state.users.find....... }
 }
 export default connect(mapStateToProps, { fetchUser })(UserHeader);
